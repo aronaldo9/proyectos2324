@@ -1,0 +1,96 @@
+const animales = new Set(["perro","gato","loro"]);
+// añadir elementos
+animales.add("canario");
+animales.add("canario");
+// borrar elementos
+animales.delete("canarioooo");
+animales.delete("canario");
+// obtener tamaño
+animales.size
+// verificar la existencia d eun elemento dentro de mi set
+animales.has("perro");
+// recorrer el set
+for(let animal of animales) {
+  console.log(animal)
+}
+// convertir Set en Array
+const arrayAnimales = Array.from(animales);
+// Spread operator
+const arrayAnimales2 = [ ...animales ];
+
+const a = [1,2,3,2,1,4,5,2,1]
+// ¿lo convierto a set y luego lo paso a array?
+const aSet = new Set(a)
+const a1 = [ ...aSet ] // Array.from(aSet)
+
+// Operaciones con Set
+  // Unión
+  const c = new Set([1,2,3])
+  const d = new Set([6,2,1])
+  const cd = new Set([ ...c , ...d ])
+  cd
+  // Diferencia --> c-d // filter (aprenderlo)
+  const c_d = new Set( [ ...c ].filter((num) => !d.has(num) ))
+  c_d
+  // Intersección --> c_i_d
+  const c_i_d = new Set( [ ...c ].filter((num) => d.has(num) ))
+  c_i_d
+
+// Dados dos conjuntos de datos Set comprobar si son iguales, elemento por elemento
+  const f = new Set([1,2,3])
+  const g = new Set([3,2,1])
+  const v = (s1,s2) => s1.size !== s2.size ? false : s1.has(...s2)
+  console.log(v(f,g))
+
+function v2(s1,s2) {
+  if(s1.size!==s2.size){
+    return false
+  } else {
+    for(let num of s1){
+      if(!s2.has(num)){
+        return false
+      }
+      return true
+    }
+  }
+}
+
+console.log(v2(f,g))
+
+
+// Comprobar si un subconjunto está en un conjunto
+// Comprobar si un conjunto(b) es subconjunto de un conjunto dado(a)
+const v3 = (s1,s2) => [ ...s1].every((num)=>s2.has(num))
+console.log(v3(f,g))
+
+// for....of   // foreach
+a.forEach(num => console.log(num))
+
+
+function sumar(...numeros) {
+  return [...numeros].reduce((acumulador,num) => acumulador+=num,0)
+}
+
+sumar(2,3,4)
+
+
+// objetos:
+const usuarios = [{
+  id : "111a",
+  Nombre: "Aarón",
+  Ciudad: "Granada",
+  CP: 18194,
+  password: true,
+  libros: [{
+            isbn: 12,
+            título: "Libro1",
+            precio: 45,
+          },
+           {
+            isbn: 45,
+            título: "Libro2",
+            precio: 15,
+          },
+          ]
+},
+];

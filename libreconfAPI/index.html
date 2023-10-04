@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Precios de la Luz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .green {
+            background-color: lightgreen;
+        }
+        .blue {
+            background-color: lightblue;
+        }
+        .red {
+            background-color: lightcoral;
+        }
+    </style>
+</head>
+<body>
+    <h1>Precios de la Luz</h1>
+    <div id="data-container"></div>
+
+    <script>
+        fetch('precios.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Ordenar los datos por precio ascendente
+                const sortedData = Object.values(data).sort((a, b) => a.price - b.price);
+
+                const dataContainer = document.getElementById('data-container');
+                const table = document.createElement('table');
+                const headerRow = table.insertRow(0);
+                const headers = ['date', 'hour', 'market', 'price', 'units'];
+
+                headers.forEach(header => {
+                    const cell = headerRow.insertCell();
+                    cell.textContent = header.charAt(0).toUpperCase() + header.slice(1);
+                });
+
+                sortedData.forEach(item => {
+                    const row = table.insertRow();
+                    headers.forEach(header => {
+                        const cell = row.insertCell();
+                        cell.textContent = item[header];
+                        if (header === 'price') {
+                            if (item.price <= sortedData[6].price) {
+                                cell.classList.add('green');
+                            } else if (item.price >= sortedData[sortedData.length - 7].price) {
+                                cell.classList.add('red');
+                            } else {
+                                cell.classList.add('blue');
+                            }
+                        }
+                    });
+                });
+
+                dataContainer.appendChild(table);
+            })
+            .catch(error => {
+                console.error('Hubo un error al cargar los datos:', error);
+                const dataContainer = document.getElementById('data-container');
+                dataContainer.textContent = 'No se pudieron cargar los datos.';
+            });
+    </script>
+</body>
+</html>
+
+
+
+    
