@@ -1,31 +1,15 @@
-import { users } from "./assets/modules.js";
-
-// insertar elementos en el localStorage.
-
-localStorage.setItem("misUsers", JSON.stringify(users));
-
-// función saludo
-function saludo () {
-    alert("Hola mundo");
-}
-
-const username = document.getElementById("username").value;
-const password = document.getElementById("password").value;
-
-document.getElementById("guardar").addEventListener('click', saludo);
-
-
-
 /**
+ * @author: AarónPF
+ * @description:
  * ejercicio localStorage
- * crear una página web que tenga la siguiente estructura: header ancho 100%, 
+ * crear una página web que tenga la siguiente estructura: header ancho 100%,
  * nombre del proyecto UsuariosLocalStorage(centrado);
  * Seguidamente dos secciones q parten la pantalla por la mitad.
  * La parte izqda tendrá un formulario "login" q contendrá los campos username, password y el botón de guardar.
- * La parte d ela dcha tendrá un título que diga Usuarios almacenados en localStorage y un textarea,
+ * La parte de la derecha tendrá un título que diga Usuarios almacenados en localStorage y un textarea,
  * junto con el botón cargar.
  * La funcionalidad será la siguiente:
- * 1º Cargaremos todos los usuarios de json/placeholder.users en una variable "user" y 
+ * 1º Cargaremos todos los usuarios de json/placeholder.users en una variable "user" y
  * a través de una función a la q pasemos la variable, guardará el password y username de los usuarios
  * dentro de LocalStorage. La password será encriptada antes de ser almacenada.
  * 2º A través del formulario introduciré un nombre y contraseña. Si el nombre no está guardado en localStorage,
@@ -35,3 +19,97 @@ document.getElementById("guardar").addEventListener('click', saludo);
  * almacenados en localStorage. NOTA: para encriptar la contraseña usaremos btoa con la cadena que queremos
  * encriptar, y con atob y la cadena, la desencriptamos.
  */
+
+
+import { users } from "./assets/modules.js";
+
+// 1ª Funcionalidad
+let user = users;
+
+const passwordEncriptada = password => btoa(password);
+
+const guardarDatosUsuario = (users) => {
+    const datosUsuario = users.map(usuario => ({
+        username: usuario.login.username,
+        password: passwordEncriptada(usuario.login.password)
+    })); 
+    localStorage.setItem('user', JSON.stringify(datosUsuario));
+    console.log('Usuarios guardados en LocalStorage');
+};
+
+// Llamar a la función para guardar los datos de los usuarios en LocalStorage
+guardarDatosUsuario(user);
+
+
+// 2ª Funcionalidad
+// Obtener los elementos del formulario
+const loginForm = document.querySelector('.loginForm');
+const usernameInput = document.getElementById('username');
+const passwordInput = document.getElementById('password');
+
+// Evento para guardar los datos del formulario en localStorage
+loginForm.addEventListener('submit', (event) => {
+    event.preventDefault();  // Evitar el comportamiento predeterminado del formulario
+
+    const username = usernameInput.value;
+    const password = passwordInput.value;
+
+    // Obtener los usuarios almacenados en localStorage
+    const usersGuardados = JSON.parse(localStorage.getItem('user')) || [];
+
+    // Verificar si el nombre de usuario ya está almacenado en localStorage
+    const existeUser = usersGuardados.some(user => user.username === username);
+
+    if (existeUser) {
+        alert('El nombre de usuario ya está almacenado en localStorage.');
+    } else {
+        // Guardar el nuevo usuario en localStorage
+        const nuevoUser = {
+            username: username,
+            password: passwordEncriptada(password)
+        };
+        usersGuardados.push(nuevoUser);
+        localStorage.setItem('user', JSON.stringify(usersGuardados));
+        alert('Usuario almacenado en localStorage.');
+    }
+
+    // Limpiar los campos después de guardar
+    usernameInput.value = '';
+    passwordInput.value = '';
+});
+
+
+// 3ª Funcionalidad
+
+function cargarUsuarios() {
+    const usuariosLocalStorage = JSON.parse(localStorage.getItem('user'));
+    if (usuariosLocalStorage) {
+        const infoUsers = usuariosLocalStorage.map(user => `Nombre de usuario: ${user.username}, Contraseña: ${atob(user.password)}`).join('\n');
+
+        const infoTextArea = document.getElementById('infouserpassword');
+        infoTextArea.value = infoUsers;
+    } else {
+        console.log('No hay usuarios en LocalStorage.');
+    }
+}
+
+
+const cargar = document.getElementById('cargar');
+cargar.addEventListener('click', cargarUsuarios);
+
+
+
+
+// // insertar elementos en el localStorage.
+
+// localStorage.setItem("misUsers", JSON.stringify(users));
+
+// // función saludo
+// function saludo () {
+//     alert("Hola mundo");
+// }
+
+// const username = document.getElementById("username").value;
+// const password = document.getElementById("password").value;
+
+// document.getElementById("guardar").addEventListener('click', saludo);
