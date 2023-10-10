@@ -20,82 +20,161 @@
  * encriptar, y con atob y la cadena, la desencriptamos.
  */
 
+// SOLUCIÓN CLASE
+import usuarios from "./assets/modules.js";
 
-import { users } from "./assets/modules.js";
+// -----------Declaración de variables globales -----------------
+let myStructUsers = [];
 
-// 1ª Funcionalidad
-let user = users;
+// creamos función que guarde en LS la estructura usuarios
 
-const passwordEncriptada = password => btoa(password);
+/**
+ * 
+ * @param {Array} structData 
+ * @return {Boolean}
+ */
+function insertUsers(key,structData) {
+    return localStorage.setItem(key,JSON.stringify(structData));
+}
 
-const guardarDatosUsuario = (users) => {
-    const datosUsuario = users.map(usuario => ({
-        username: usuario.login.username,
-        password: passwordEncriptada(usuario.login.password)
-    })); 
-    localStorage.setItem('user', JSON.stringify(datosUsuario));
-    console.log('Usuarios guardados en LocalStorage');
-};
-
-// Llamar a la función para guardar los datos de los usuarios en LocalStorage
-guardarDatosUsuario(user);
-
-
-// 2ª Funcionalidad
-// Obtener los elementos del formulario
-const loginForm = document.querySelector('.loginForm');
-const usernameInput = document.getElementById('username');
-const passwordInput = document.getElementById('password');
-
-// Evento para guardar los datos del formulario en localStorage
-loginForm.addEventListener('submit', (event) => {
-    event.preventDefault();  // Evitar el comportamiento predeterminado del formulario
-
-    const username = usernameInput.value;
-    const password = passwordInput.value;
-
-    // Obtener los usuarios almacenados en localStorage
-    const usersGuardados = JSON.parse(localStorage.getItem('user')) || [];
-
-    // Verificar si el nombre de usuario ya está almacenado en localStorage
-    const existeUser = usersGuardados.some(user => user.username === username);
-
-    if (existeUser) {
-        alert('El nombre de usuario ya está almacenado en localStorage.');
-    } else {
-        // Guardar el nuevo usuario en localStorage
-        const nuevoUser = {
-            username: username,
-            password: passwordEncriptada(password)
-        };
-        usersGuardados.push(nuevoUser);
-        localStorage.setItem('user', JSON.stringify(usersGuardados));
-        alert('Usuario almacenado en localStorage.');
-    }
-
-    // Limpiar los campos después de guardar
-    usernameInput.value = '';
-    passwordInput.value = '';
-});
+insertUsers("myUsers",usuarios);
 
 
-// 3ª Funcionalidad
+// función que cargue del LS la estructura cuyo nombre le pase como parámetro
+function loadStruct(key) {
+    return JSON.parse(localStorage.getItem(key));
+}
 
-function cargarUsuarios() {
-    const usuariosLocalStorage = JSON.parse(localStorage.getItem('user'));
-    if (usuariosLocalStorage) {
-        const infoUsers = usuariosLocalStorage.map(user => `Nombre de usuario: ${user.username}, Contraseña: ${atob(user.password)}`).join('\n');
+myStructUsers = loadStruct("myUsers");
 
-        const infoTextArea = document.getElementById('infouserpassword');
-        infoTextArea.value = infoUsers;
-    } else {
-        console.log('No hay usuarios en LocalStorage.');
-    }
+
+
+// guardar en una estructura de datos el username y el password codificado de todos los usuarios de mi 
+// estructura y de todos los nuevos usuarios que vaya a introducir, sin repetir el username. Después se
+// vuelca en LocalStorage
+
+function saveStructUserPaswords (key, structUsers) {
+    const tmpArray = [];
+    structUsers.map( user => {
+        tmpArray.push({ [user.login.username] : btoa(user.login.password)});
+        //localStorage.setItem(key,)));
+    });
+    return localStorage.setItem(key, JSON.stringify(tmpArray));
+}
+
+saveStructUserPaswords("newUsers", myStructUsers);
+
+
+// funcion que guarde del formulario los datos en mi estructura de datos con username, password codificado
+// no se puede repetir el username
+function saveUserPasswordLocalStorage(key, username, password) {
+    const tmpArray = JSON.parse(localStorage.getItem(key));
+    let encontrado = false;
+    tmpArray.map( objeto => objeto.hasOwnProperty(username) ? (encontrado = true) : false );
+    // objeto.hasOwnProperty(username) && (encontrado = true) --> es lo mismo que lo de arriba
+
+    !encontrado ? tmpArray.push({ [username] : btoa(password)}) : alert(`El usuario con username ${username} ya existe`);
+
+    localStorage.setItem(key, JSON.stringify(tmpArray));
 }
 
 
-const cargar = document.getElementById('cargar');
-cargar.addEventListener('click', cargarUsuarios);
+function save() {
+    // capturar lo que he escrito en el formulario y guardarlo en variables. LLamar a mi función que
+    // guardaba en la key el username y el password. Si lo guarda, alert indicando que ha sido guardado y // borro el formulario
+}
+
+
+
+// -------------- CAPTURA DE EVENTOS EN EL FORMULARIO ----------------------
+document.getElementById("guardar").addEventListener("click", () => save);
+
+
+
+
+
+
+
+
+
+
+
+// Mi solución!!
+// import { users } from "./assets/modules.js";
+
+// // 1ª Funcionalidad
+// let user = users;
+
+// const passwordEncriptada = password => btoa(password);
+
+// const guardarDatosUsuario = (users) => {
+//     const datosUsuario = users.map(usuario => ({
+//         username: usuario.login.username,
+//         password: passwordEncriptada(usuario.login.password)
+//     })); 
+//     localStorage.setItem('user', JSON.stringify(datosUsuario));
+//     console.log('Usuarios guardados en LocalStorage');
+// };
+
+// // Llamar a la función para guardar los datos de los usuarios en LocalStorage
+// guardarDatosUsuario(user);
+
+
+// // 2ª Funcionalidad
+// // Obtener los elementos del formulario
+// const loginForm = document.querySelector('.loginForm');
+// const usernameInput = document.getElementById('username');
+// const passwordInput = document.getElementById('password');
+
+// // Evento para guardar los datos del formulario en localStorage
+// loginForm.addEventListener('submit', (event) => {
+//     event.preventDefault();  // Evitar el comportamiento predeterminado del formulario
+
+//     const username = usernameInput.value;
+//     const password = passwordInput.value;
+
+//     // Obtener los usuarios almacenados en localStorage
+//     const usersGuardados = JSON.parse(localStorage.getItem('user')) || [];
+
+//     // Verificar si el nombre de usuario ya está almacenado en localStorage
+//     const existeUser = usersGuardados.some(user => user.username === username);
+
+//     if (existeUser) {
+//         alert('El nombre de usuario ya está almacenado en localStorage.');
+//     } else {
+//         // Guardar el nuevo usuario en localStorage
+//         const nuevoUser = {
+//             username: username,
+//             password: passwordEncriptada(password)
+//         };
+//         usersGuardados.push(nuevoUser);
+//         localStorage.setItem('user', JSON.stringify(usersGuardados));
+//         alert('Usuario almacenado en localStorage.');
+//     }
+
+//     // Limpiar los campos después de guardar
+//     usernameInput.value = '';
+//     passwordInput.value = '';
+// });
+
+
+// // 3ª Funcionalidad
+
+// function cargarUsuarios() {
+//     const usuariosLocalStorage = JSON.parse(localStorage.getItem('user'));
+//     if (usuariosLocalStorage) {
+//         const infoUsers = usuariosLocalStorage.map(user => `Nombre de usuario: ${user.username}, Contraseña: ${atob(user.password)}`).join('\n');
+
+//         const infoTextArea = document.getElementById('infouserpassword');
+//         infoTextArea.value = infoUsers;
+//     } else {
+//         console.log('No hay usuarios en LocalStorage.');
+//     }
+// }
+
+
+// const cargar = document.getElementById('cargar');
+// cargar.addEventListener('click', cargarUsuarios);
 
 
 
