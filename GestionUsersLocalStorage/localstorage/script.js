@@ -68,26 +68,64 @@ saveStructUserPaswords("newUsers", myStructUsers);
 // funcion que guarde del formulario los datos en mi estructura de datos con username, password codificado
 // no se puede repetir el username
 function saveUserPasswordLocalStorage(key, username, password) {
-    const tmpArray = JSON.parse(localStorage.getItem(key));
-    let encontrado = false;
-    tmpArray.map( objeto => objeto.hasOwnProperty(username) ? (encontrado = true) : false );
-    // objeto.hasOwnProperty(username) && (encontrado = true) --> es lo mismo que lo de arriba
+    const tmpArray = JSON.parse(localStorage.getItem(key)) || [];
+    
+    const encontrado = tmpArray.some(objeto => objeto.hasOwnProperty(username));
 
-    !encontrado ? tmpArray.push({ [username] : btoa(password)}) : alert(`El usuario con username ${username} ya existe`);
-
-    localStorage.setItem(key, JSON.stringify(tmpArray));
+    if (!encontrado) {
+        tmpArray.push({ [username]: btoa(password) });
+        localStorage.setItem(key, JSON.stringify(tmpArray));
+        return true;  // Se ha guardado con éxito
+    } else {
+        alert(`El usuario con username ${username} ya existe`);
+        return false;  // No se pudo guardar
+    }
 }
+
 
 
 function save() {
-    // capturar lo que he escrito en el formulario y guardarlo en variables. LLamar a mi función que
-    // guardaba en la key el username y el password. Si lo guarda, alert indicando que ha sido guardado y // borro el formulario
+    // capturar lo que he escrito en el formulario y guardarlo en variables.
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    // LLamar a mi función que guardaba en la key el username y el password.
+    const saveWithExit = saveUserPasswordLocalStorage('newUsers',username,password);
+    
+    // Si lo guarda, alert indicando que ha sido guardado
+    if(saveWithExit) {
+        alert ("Usuario y contraseña guardados con éxito");
+    }
+    else{
+        alert ("Error al guardar los datos");
+    }
+
+    // Limpiar el formulario
+    document.getElementById('username').value = '';
+    document.getElementById('password').value = '';
 }
+
+
+function chargeUsers() {
+        const users = JSON.parse(localStorage.getItem('newUsers'));
+        if (users) {
+            const infoUsers = users.map(user => `Nombre de usuario: ${Object.keys(user)[0]}, Contraseña: ${atob(user[Object.keys(user)[0]])}`).join('\n');
+    
+            const infoTextArea = document.getElementById('infouserpassword');
+            infoTextArea.value = infoUsers;
+        } else {
+            console.log('No hay usuarios en LocalStorage.');
+        }
+    }
+
+    const cargar = document.getElementById('cargar');
+    cargar.addEventListener('click', chargeUsers);
+
 
 
 
 // -------------- CAPTURA DE EVENTOS EN EL FORMULARIO ----------------------
-document.getElementById("guardar").addEventListener("click", () => save);
+document.getElementById("guardar").addEventListener("click", save);
 
 
 
