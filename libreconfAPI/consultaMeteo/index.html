@@ -1,11 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Condiciones Meteo</title>
-</head>
-<body>
-    
-</body>
+
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      th,
+      td {
+        border: 1px solid black;
+        padding: 10px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Datos de meteorología para pueblos de Granada</h1>
+
+    <table id="weatherTable">
+      <thead>
+        <tr>
+          <th>Pueblo</th>
+          <th>Presión</th>
+          <th>Humedad</th>
+          <th>Temperatura Mínima</th>
+          <th>Temperatura Máxima</th>
+          <th>Viento Máximo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Las filas de la tabla se llenarán dinámicamente desde JavaScript -->
+      </tbody>
+    </table>
+
+    <script>
+      fetch("meteo.json")
+        .then((response) => response.json())
+        .then((data) => {
+          const table = document
+            .getElementById("weatherTable")
+            .getElementsByTagName("tbody")[0];
+          data.forEach((item) => {
+            if (item.ubi.includes("GRANADA")) {
+              const row = table.insertRow(-1);
+              const puebloCell = row.insertCell(0);
+              const presionCell = row.insertCell(1);
+              const humedadCell = row.insertCell(2);
+              const tempMinCell = row.insertCell(3);
+              const tempMaxCell = row.insertCell(4);
+              const vientoMaxCell = row.insertCell(5);
+
+              puebloCell.innerText = item.ubi;
+              presionCell.innerText = item.pres;
+              humedadCell.innerText = item.hr;
+              tempMinCell.innerText = item.tamin;
+              tempMaxCell.innerText = item.tamax;
+              vientoMaxCell.innerText = item.vmax;
+            }
+          });
+        })
+        .catch((error) => {
+          console.log("Hubo un error al obtener los datos del archivo JSON");
+        });
+    </script>
+  </body>
 </html>
