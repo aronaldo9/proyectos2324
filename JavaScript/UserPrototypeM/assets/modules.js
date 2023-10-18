@@ -27,11 +27,11 @@ export const usuarioLiteral = {
     },
     set dni(newDni) {
         // aquí tenemos que validar que newDni es correcto
-        this.validarDni(newDni) ? this._dni = newDni : false;
+        this.validarDni(newDni) ? (this._dni = newDni) : false;
     },
     validarDni(miDni) {
         const letras = "TRWAGMYFPDXBNJZSQVHLCKE";
-        const dniN = miDni.slice(0,8);
+        const dniN = parseInt(miDni.slice(0, 8), 10);
         const dniL = (miDni.slice(-1)).toUpperCase();
         if(letras.charAt(dniN % 23) === dniL) {
             return true;
@@ -39,7 +39,7 @@ export const usuarioLiteral = {
         return false;
     },
     mostrarInfo() {
-        return `Nombre: ${this.nombre} \t\t Edad: ${this.edad} \t\t Dni: ${this.dni}`;
+        return `Nombre: ${this.nombre} \n Edad: ${this.edad} \n Dni: ${this.dni}`;
     },
 };
 

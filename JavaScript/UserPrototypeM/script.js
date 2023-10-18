@@ -9,7 +9,7 @@
 import { usuarioLiteral as Usuario } from "./assets/modules.js";
 
 // ------- Variables Globales --------
-
+let arrayUsers = [];
 
 
 // ------- Funciones --------------
@@ -25,14 +25,32 @@ function handlerInsertarUsuario(e) {
     let newUser = Object.create(Usuario);
     newUser.nombre = usernameFrm;
     newUser.edad = edadFrm;
-    if(newUser.dni = dniFrm) {
-        alert("Insertado Correctamente");
+    newUser.dni = dniFrm;
+
+    let mensaje = "";
+    if (newUser.dni === dniFrm) {
+        mensaje = "DNI Insertado Correctamente";
+        // Agregar el usuario al array
+        arrayUsers.push(newUser);
         console.log(newUser.mostrarInfo());
+        // Guardar en localStorage
+        localStorage.setItem("datosUsuarios", JSON.stringify(arrayUsers));
+    } else {
+        mensaje = "Error al insertar el DNI";
     }
+
+    const mensajeElement = document.getElementById(newUser.dni === dniFrm ? "mensajeExito" : "mensajeError");
+        mensajeElement.textContent = mensaje;
+        mensajeElement.style.display = "block";
+
+    // Mostrar el mensaje después de 5 segundos
+    setTimeout(() => {
+        mensajeElement.remove();
+    }, 5000); 
 }
 
 function init() {
-    document.getElementById("insertarUsuario").addEventListener('click', handlerInsertarUsuario);
+    document.getElementById("insertarUsuario").addEventListener("click", handlerInsertarUsuario);
 }
 
 
