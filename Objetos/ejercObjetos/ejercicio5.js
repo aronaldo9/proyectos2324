@@ -5,13 +5,18 @@
  */
 
 function f(a,b) {
+    // Creamos un objeto utilizando una sintaxis de clave dinámica.
+    // La clave se define a través de la variable "a", y el valor se toma de la variable "b".
     const objeto = {
         [a] : b,
     }
 
+    // Devolvemos el objeto creado
     return objeto;
 }
 
+// Definimos dos variables con valores; las variables van a ser los parámetros de nuestra función,
+// y por tanto, la clave y el valor del objeto resultante
 const a = "clave";
 const b = "valor";
 

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tienda Libros</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
+  </head>
+  <body>
+    <header class="bg-primary text-center py-2">
+      <div class="container">
+        <h1 class="text-light">Tienda de Libros</h1>
+      </div>
+    </header>
+    <div class="container mt-2">
+      <div class="row">
+        <div class="col-md-4 mt-4">
+          <h3 class="text-center">Agregar Libros</h3>
+          <form action="" class="userPrototype" id="formularioLibros">
+            <div class="mb-3">
+              <label for="titulo" class="form-label">Título</label>
+              <input type="text" class="form-control" id="titulo" />
+            </div>
+            <div class="mb-3">
+              <label for="autor" class="form-label">Autor</label>
+              <input type="text" class="form-control" id="autor" />
+            </div>
+            <div class="mb-3">
+              <label for="precio" class="form-label">Precio</label>
+              <input type="text" class="form-control" id="precio" />
+            </div>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-primary" id="insertarLibro">Agregar Libro</button>
+            </div>
+          </form>
+          <div class="alert alert-success mt-3" id="mensajeExito" style="display: none">Libro Agregado Correctamente</div>
+          <div class="alert alert-danger mt-3" id="mensajeError" style="display: none">Error al agregar el Libro</div>        
+        </div>
+        <div class="col-md-4 mt-4">
+          <h3 class="text-center">Eliminar Libros</h3>
+          <form action="" class="userPrototype" id="formularioEliminarLibros">
+            <div class="mb-3">
+              <label for="borrarTitulo" class="form-label">Título</label>
+              <input type="text" class="form-control" id="borrarTitulo" />
+            </div>
+          </form>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-primary" id="borrarLibro">Eliminar Libro</button>
+          </div>
+        </div>
+        <div class="col-md-4 mt-4">
+          <h3 class="text-center">Calcular Precio Total</h3>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-primary" id="precioTotal">Calcular Precio</button>
+          </div>
+          <div id="precioTotalDiv" class="alert alert-primary text-center font-weight-bold">
+            Precio Total: <!-- Aquí se mostrará el precio total -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
