@@ -13,3 +13,49 @@
  * Crea instancias de la clase Dieta y de la clase Comida, agrega alimentos a la dieta y muestra la
  * lista de alimentos consumidos junto con el total de calorías en la consola.
  */
+
+
+import { ComidaLiteral as Comida, DietaLiteral as Dieta } from "./assets/modules.js";
+
+// Crear instancias de Comida y Dieta
+const comida1 = Object.create(Comida);
+comida1._nombre = 'Manzana';
+comida1._calorias = 95;
+
+const comida2 = Object.create(Comida);
+comida2._nombre = 'Pollo a la parrilla';
+comida2._calorias = 200;
+
+const comida3 = Object.create(Comida);
+comida3._nombre = 'Arroz integral';
+comida3._calorias = 150;
+
+const comida4 = Object.create(Comida);
+comida4._nombre = 'Entrecot';
+comida4._calorias = 300;
+
+const miDieta = Object.create(Dieta);
+miDieta.agregarAlimento(comida1);
+miDieta.agregarAlimento(comida2);
+miDieta.agregarAlimento(comida3);
+miDieta.agregarAlimento(comida4);
+
+// Funciones para mostrar datos
+function mostrarListaAlimentos() {
+    const listaAlimentosDiv = document.getElementById("listaAlimentos");
+    listaAlimentosDiv.innerHTML = miDieta.listarAlimentosConsumidos().join("<br>");
+    const seccionLista = document.getElementById("seccionLista");
+    seccionLista.style.display = "block";
+}
+
+function mostrarTotalCalorias() {
+    const totalCaloriasDiv = document.getElementById("totalCalorias");
+    const totalCalorias = miDieta.calcularTotalCalorias();
+    totalCaloriasDiv.textContent = `Total de calorías consumidas: ${totalCalorias}`;
+    const seccionTotal = document.getElementById("seccionTotal");
+    seccionTotal.style.display = "block";
+}
+
+// Agregar eventos a los botones
+document.getElementById("botonLista").addEventListener("click", mostrarListaAlimentos);
+document.getElementById("botonTotal").addEventListener("click", mostrarTotalCalorias);
