@@ -4,14 +4,18 @@
  * tenga una propiedad con la clave 'a' y un valor de 'b'. Devuelve el objeto.
  */
 
+/**
+ * Crea un objeto utilizando una sintaxis de clave dinámica.
+ * @param {*} a - La clave del objeto, definida a través de la variable "a".
+ * @param {*} b - El valor del objeto, tomado de la variable "b".
+ * @returns {Object} Un objeto con la clave y el valor especificados.
+ */
+
 function f(a,b) {
-    // Creamos un objeto utilizando una sintaxis de clave dinámica.
-    // La clave se define a través de la variable "a", y el valor se toma de la variable "b".
     const objeto = {
         [a] : b,
     }
 
-    // Devolvemos el objeto creado
     return objeto;
 }
 

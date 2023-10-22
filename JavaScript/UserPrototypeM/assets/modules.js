@@ -92,7 +92,6 @@ export function UsuarioFuncional(nombre, edad=0) {
             else{
                 console.log("El dni no es correcto");
             }
-
         },
     });
 
