@@ -14,6 +14,12 @@ const obj = {
 
 const propiedades = ["nombre","edad","email"];
 
+/**
+ * Función que devuelve un objeto con las propiedades del array
+ * @param {*} objeto - Un objeto con propiedades y sus valores
+ * @param {*} array - Un array con objetos
+ * @returns - Devuelve un objeto con las propiedades del array que coinciden con las del objeto original
+ */
 const extraerPropiedades = (objeto,array) => {
     const nuevoObjeto = {};
     for(propiedad of array){

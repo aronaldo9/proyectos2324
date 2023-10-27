@@ -11,6 +11,11 @@ const matriz = [
     [4,5,6],
 ];
 
+/**
+ * Función que devuelve una nueva matriz con los elementos de la matriz original multiplicados por el número
+ * @param {*} num - Un número cualquiera
+ * @returns - Devuelve una nueva matriz
+ */
 const multiplicarMatrizPorEscalar = num => matriz.map( fila => fila.map(numero => numero * escalar));
 
 console.log(multiplicarMatrizPorEscalar(escalar));

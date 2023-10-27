@@ -17,6 +17,13 @@ const obj2 = {
 const array1 = [1, 2, 3];
 const array2 = [4, 5, 6];
 
+
+/**
+ * Función que combina dos objetos o arrays en uno solo
+ * @param {*} obj1 - El primer objeto o array
+ * @param {*} obj2 - El segundo objeto o array
+ * @returns - Devuelve el objeto o array combinado.
+ */
 const combinarObjetos = (obj1, obj2) => {
     if (Array.isArray(obj1) && Array.isArray(obj2)) {
         return [...obj1, ...obj2];
