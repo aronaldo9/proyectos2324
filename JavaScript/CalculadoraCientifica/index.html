@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .calculator {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .display {
+            background-color: #222;
+            color: #39a4f1;
+            border: none;
+            font-size: 24px;
+            text-align: right;
+        }
+
+        .btn {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="calculator text-center">
+        <input type="text" class="form-control display" id="display" readonly>
+        <div class="row mt-3">
+            <div class="col-md-3">
+                <button class="btn btn-secondary btn-block" onclick="addToDisplay('7')">7</button>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-secondary btn-block" onclick="addToDisplay('8')">8</button>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-secondary btn-block" onclick="addToDisplay('9')">9</button>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-warning btn-block" onclick="addToDisplay('+')">+</button>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-3">
+                <button class="btn btn-secondary btn-block" onclick="addToDisplay('4')">4</button>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-secondary btn-block" onclick="addToDisplay('5')">5</button>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-secondary btn-block" onclick="addToDisplay('6')">6</button>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-warning btn-block" onclick="addToDisplay('-')">-</button>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-3">
+                <button class="btn btn-secondary btn-block" onclick="addToDisplay('1')">1</button>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-secondary btn-block" onclick="addToDisplay('2')">2</button>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-secondary btn-block" onclick="addToDisplay('3')">3</button>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-warning btn-block" onclick="addToDisplay('*')">*</button>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-3">
+                <button class="btn btn-secondary btn-block" onclick="addToDisplay('0')">0</button>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-secondary btn-block" onclick="addToDisplay('.')">.</button>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-success btn-block" onclick="calculateResult()">=</button>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-danger btn-block" onclick="clearDisplay()">C</button>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-3">
+                <button class="btn btn-info btn-block" onclick="addToDisplay('Math.sqrt(')">&radic;</button>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-info btn-block" onclick="addToDisplay('**')">^</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
