@@ -16,6 +16,8 @@ const matriz = [
  * @param {*} num - Un número cualquiera
  * @returns - Devuelve una nueva matriz
  */
-const multiplicarMatrizPorEscalar = num => matriz.map( fila => fila.map(numero => numero * escalar));
+const multiplicarMatrizPorEscalar = (matriz, escalar) => {
+    return matriz.map(fila => fila.map(numero => numero * escalar));
+  };
 
-console.log(multiplicarMatrizPorEscalar(escalar));
+console.log(multiplicarMatrizPorEscalar(matriz,escalar));

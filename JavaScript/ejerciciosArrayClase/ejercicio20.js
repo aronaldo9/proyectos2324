@@ -9,7 +9,7 @@ function diferenciaArrays(arr1,arr2) {
     const dif1 = arr1.filter(elemento => !arr2.includes(elemento));
     const dif2 = arr2.filter(elemento => !arr1.includes(elemento));
 
-    return dif1.concat(dif2);
+    return dif1.concat(dif2).sort();
 }
 
 const array1 = [2,4,6,8,7,3];
