@@ -4,6 +4,7 @@
 
 // Import 
 import { v4 as uuidv4 } from 'uuid';
+uuidv4();
 
 // Variables Globales
 const newTaskInput = document.querySelector('#new-task-input');
