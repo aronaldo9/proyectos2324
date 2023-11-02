@@ -1,24 +1,28 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+// Selectores del DOM
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+let titulo = document.getElementById('titulo');
+let titulo2 = document.querySelector('.titulo-2');
+console.log("titulo", titulo);
+console.log("titulo2", titulo2);
 
-setupCounter(document.querySelector('#counter'))
+let lista = document.querySelectorAll("ul.lista-tareas > li");
+console.log(lista);
+
+
+// Modificar Elementos
+titulo.innerText = "hola mundo";
+titulo.innerHTML = "hola <em> MUNDO </em>";
+
+let miLogo = document.querySelector('img');
+miLogo.setAttribute("src", "/javascript.svg");
+
+miLogo.classList.add("new-class"); // añade una nueva clase
+// miLogo.classList.toggle();  cambia una clase por otra
+
+
+// estilos inline
+titulo.style.backgroundColor = "lightblue";
+
+const eliminarDiv = document.querySelector(".eliminar-div");
+document.removeChild(eliminarDiv);// esto no funciona xq no es hijo de document
+
