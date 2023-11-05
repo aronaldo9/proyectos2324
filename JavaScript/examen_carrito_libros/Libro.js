@@ -46,7 +46,15 @@ export function Libro(ISBN,titulo,paginas,editorial,precio,stock) {
     }
 
     this.addTags = function(nuevosTags) {
-        if()
-    }
+        // Verificar si cada nuevo tag no está ya presente en la lista de tags
+        nuevosTags.forEach((tag) => {
+          if (!this._tags.includes(tag)) {
+            this._tags.push(tag); // Agregar el nuevo tag si no está en la lista
+          }
+          else {
+            alert("El tag ya existe");
+          }
+        });
+      }
 
 }
