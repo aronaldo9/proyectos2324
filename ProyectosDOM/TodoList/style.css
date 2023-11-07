@@ -1,23 +1,128 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+
 
 body {
   font-family: "Roboto", sans-serif;
-  background-color: white;
-  font-size: 30px;
-  font-weight: 400;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
 }
 
-main {
-  width: 700px;
+nav {
+  background-color: transparent;
+  height: 100px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 20px;
+}
+
+nav ul {
+  list-style-type: none;
+}
+
+nav li {
+  margin: 0 20px;
+}
+
+nav a:hover {
+  color: #ff9000;
+}
+
+nav a {
+  text-decoration: none;
+  color: #852020;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.task-list-section {
+  max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+  background-color: white;
+  border-radius: 5px;
+  margin-top: 30px;
+  transition: 1s linear;
 }
 
-input, button {
+.task-list-section:hover {
+  box-shadow: 10px 10px 14px 2px rgba(0, 0, 0, 0.5);
+
+}
+
+.img-titulo {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+img {
+  border-radius: 15px;
+  box-shadow: 0 0 20px 2px rgba(17, 1, 1, 0.3);
+  width: 40%;
+}
+
+h1 {
+  font-size: 30px;
+  text-align: center;
+  transition: font-size 1s ease;
+}
+
+h1:hover {
+  font-size: 40px;
+}
+
+.form-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#new-task-input {
+  width: 80%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 20px;
+}
+
+.add-task-btn {
+  width: 20%;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.add-task-btn:hover {
+  background-color: #0056b3;
+}
+
+.tasks-list-ul {
+  list-style: none;
+  padding: 0;
+}
+
+.tasks-list-ul li {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin: 10px 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+
+
+
+/* input, button {
   padding: 10px;
   border: 1px solid black;
   border-radius: 5px;
@@ -39,4 +144,4 @@ li {
   border-radius: 5px;
   padding: 10px;
   margin-top: 20px;
-}
+} */

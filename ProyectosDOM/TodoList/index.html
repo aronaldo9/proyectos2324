@@ -1,30 +1,52 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <nav>
+      <ul>
+        <li>
+          <a href="#" class="mostrar-grafico-link">Mostrar Gráfico</a>
+        </li>
+      </ul>
+    </nav>
     <main>
       <section class="task-list-section">
-        <h1 class="titulo">TODO List</h1>
-        <!-- input para introducir la tarea -->
-        <input 
-        type="text" 
-        id="new-task-input" 
-        placeholder="Introduzca la tarea"
-        />
-        <!-- Btn Insertar Tarea-->
-        <button class="add-task-btn">Añadir Tarea</button>
+        <!-- Imagen de título y portada-->
+        <div class="img-titulo">
+          <img
+            src="assets/images/Lista-de-tareas.jpg"
+            alt=""
+            class="img-lista"
+          />
+
+          <h1 class="titulo">Lista de Tareas</h1>
+        </div>
+        <!-- Contenedor para todo el formulario-->
+        <div class="form-container">
+          <input
+            type="text"
+            id="new-task-input"
+            placeholder="Introduzca la tarea"
+          />
+          <!-- Btn Insertar Tarea-->
+          <button class="add-task-btn">Añadir Tarea</button>
+          
+        </div>
         <!-- Lista de tareas -->
         <ul class="tasks-list-ul"></ul>
+        <!-- Sección que agrupa el gráfico-->
+        <section class="graficoContainer">
+
+        </section>
       </section>
-      
     </main>
-    
+
     <script type="module" src="/main.js"></script>
   </body>
 </html>
