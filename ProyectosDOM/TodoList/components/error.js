@@ -5,12 +5,17 @@
  * indicando el texto que le hemos indicado a la función, con una duración de 3segs
  */
 
-export default function mostrarError(text,selector) {
+export default function mostrarError(text, selector) {
     const error = document.createElement('span');
-    error.className = "text-error"; 
-    error.textContent = text;  
-    error.appendChild(selector);
+    error.className = "text-error";
+    error.textContent = text;
+    error.style.color = "red"; // Establecer el color rojo
+
+    const container = document.querySelector(selector);
+    container.appendChild(error);
+    
     setTimeout(() => {
-        
+        error.remove();
     }, 3000);
 }
+
