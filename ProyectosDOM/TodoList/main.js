@@ -107,6 +107,7 @@ function createTaskElement(task) {
   taskCheckBox.addEventListener("change", () => {
     task.isCompleted = !task.isCompleted;
     taskTitleElement.classList.toggle("completed", task.isCompleted);
+    crearGrafico(".grafico-container", tasks);
 
     const updatedTasks = app.tasks.map((savedTask) => {
       if (savedTask.id === task.id) {
@@ -174,7 +175,6 @@ mostrarGraficoBtn.addEventListener("click", (evento) => {
 });
 
 function init() {
-  loadTasksFromLocalStorage();
   const tasksFromLocalStorage = localStorage.getItem("tasks");
   if (tasksFromLocalStorage) {
     const tasks = JSON.parse(tasksFromLocalStorage);
