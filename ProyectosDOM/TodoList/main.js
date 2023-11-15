@@ -65,23 +65,32 @@ function createTaskElement(task) {
   taskTitleElement.classList.toggle("completed", task.isCompleted);
 
   // Añadir evento de doble clic para editar el texto de la tarea
-  taskTitleElement.addEventListener('dblclick', () => {
+  taskTitleElement.addEventListener("dblclick", () => {
     const prevTitle = task.title; // Almacenar el título anterior
     const newTitle = prompt("Editar tarea:", task.title);
 
     if (newTitle !== null && newTitle !== prevTitle) {
-        const isDuplicate = app.tasks.some(t => t.title === newTitle);
-        if (isDuplicate) {
-            mostrarError("¡Esta tarea ya existe!", '.tasks-list-ul');
-            return;
-        }
+      const isDuplicate = app.tasks.some((t) => t.title === newTitle);
+      if (isDuplicate) {
+        mostrarError("¡Esta tarea ya existe!", ".tasks-list-ul");
+        return;
+      }
 
-        task.title = newTitle;
-        taskTitleElement.textContent = newTitle;
-        saveTaskToLocalStorage();
+      task.title = newTitle;
+      taskTitleElement.textContent = newTitle;
+      saveTaskToLocalStorage();
     }
-});
+  });
 
+  // creo el botón para imprimir la tarea
+  const taskPrintBtn = document.createElement("button");
+  taskPrintBtn.className = "print-button";
+  taskPrintBtn.innerHTML = '<i class="fas fa-print"></i>'; // Asegúrate de tener Font Awesome cargado en tu proyecto
+
+  // programo el evento para imprimir
+  taskPrintBtn.addEventListener("click", () => {
+    imprimirTarea(task);
+  });
 
   const taskDeleteBtn = document.createElement("button");
   taskDeleteBtn.textContent = "Eliminar Tarea";
@@ -94,6 +103,28 @@ function createTaskElement(task) {
       app.tasks.splice(taskIndex, 1);
       taskElementLi.remove();
       saveTaskToLocalStorage();
+    }
+  });
+
+  // Agrega un nuevo selector para el input de búsqueda
+  const inputSearch = document.querySelector('.search-input');
+
+  // Evento para la tecla Enter en el input de búsqueda
+  inputSearch.addEventListener('keydown', (evento) => {
+    if (evento.key === 'Enter') {
+      const searchText = inputSearch.value.toLowerCase().trim();
+      const tasksFiltered = app.tasks.filter(task => task.title.toLowerCase().includes(searchText));
+
+      // Limpiar la lista antes de agregar las tareas filtradas
+      tasksListUl.innerHTML = '';
+
+      // Agregar las tareas filtradas a la lista
+      tasksFiltered.forEach(task => addTaskToList(task, tasksListUl));
+
+      // Desactivar el scrolling en el evento 'touchstart'
+    document.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+    }, { passive: false });
     }
   });
 
@@ -123,6 +154,7 @@ function createTaskElement(task) {
   /// -------- Añadimos los elementos al <li> ---------------
   taskElementLi.appendChild(taskCheckBox);
   taskElementLi.appendChild(taskTitleElement);
+  taskElementLi.appendChild(taskPrintBtn);
   taskElementLi.appendChild(taskDeleteBtn);
   return taskElementLi;
 }
@@ -161,6 +193,46 @@ function addTask() {
   }
 }
 
+function imprimirTarea(task) {
+  const { id, title, isCompleted } = task;
+  const fechaActual = new Date().toLocaleDateString();
+
+  // Crear contenido HTML
+  const contenidoHTML = `
+    <h2>Detalles de la Tarea</h2>
+    <p>ID: ${id}</p>
+    <p>Texto de la Tarea: ${title}</p>
+    <p>Completada: ${isCompleted ? 'Sí' : 'No'}</p>
+    <p>Fecha Actual: ${fechaActual}</p>
+  `;
+
+  // Crear un Blob con el contenido HTML
+  const blobPdf = new Blob([contenidoHTML], { type: 'application/pdf' });
+
+  // Crear URL para el Blob
+  const urlBlob = URL.createObjectURL(blobPdf);
+
+  // Crear enlace descarga
+  const enlacePdf = document.createElement('a');
+  enlacePdf.href = urlBlob;
+  enlacePdf.download = `${task.title.substring(
+    0,
+    4
+  )}_${new Date().toLocaleDateString()}.pdf`;
+
+  // Agregar enlace al DOM
+  document.body.appendChild(enlacePdf);
+  enlacePdf.click();
+
+  // Revocar la URL del Blob para liberar recursos
+  URL.revokeObjectURL(urlBlob);
+}
+
+
+
+
+
+
 /// ---------------- Eventos -----------------
 addTaskBtn.addEventListener("click", addTask);
 newTaskInput.addEventListener("keydown", (evento) => {
@@ -175,13 +247,7 @@ mostrarGraficoBtn.addEventListener("click", (evento) => {
 });
 
 function init() {
-  const tasksFromLocalStorage = localStorage.getItem("tasks");
-  if (tasksFromLocalStorage) {
-    const tasks = JSON.parse(tasksFromLocalStorage);
-    tasks.forEach((task) => {
-      addTaskToList(task, app.tasksListUl);
-    });
-  }
+  loadTasksFromLocalStorage("tasks");
 }
 
 /// ------------ Inicio de la aplicación --------------

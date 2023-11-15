@@ -52,24 +52,46 @@
  * 
  */
 
-function iterarSync(miArray,callback) {
-  miArray.forEach((element,indice) => {
-    setTimeout(() => {
-      callback(element)
-    }, 1500*(indice+1));
-  });
+// function iterarSync(miArray,callback) {
+//   miArray.forEach((element,indice) => {
+//     setTimeout(() => {
+//       callback(element)
+//     }, 1500*(indice+1));
+//   });
 
-  /**
-   * versión con map
-   * miArray.map(elemento)=> {
-   *  setTimeout(() => 
-   *    callback(elemento);
-   * }, 1500 * (miArray[elemento] + 1));
-   * )};
-   */
+//   /**
+//    * versión con map
+//    * miArray.map(elemento)=> {
+//    *  setTimeout(() => 
+//    *    callback(elemento);
+//    * }, 1500 * (miArray[elemento] + 1));
+//    * )};
+//    */
+// }
+
+// iterarSync([1,2,3,4,5], function(dato) {
+// console.log("Pinto el dato",dato);
+// pintarCallbacks(dato,divApp);
+// });
+
+
+
+/**
+ * Ejercicio4
+ * 
+ */
+
+function validarUsuarioAsync(name, callback) {
+  const userName = "user";
+  setTimeout(() => {
+    if(name === userName) {
+      callback("Usuario válido");
+    } else {
+      callback("Usuario inválido");
+    }
+  }, 2000);
 }
 
-iterarSync([1,2,3,4,5], function(dato) {
-console.log("Pinto el dato",dato);
-pintarCallbacks(dato,divApp);
+validarUsuarioAsync("user", function(resultado) {
+  pintarCallbacks(resultado,divApp);
 });
