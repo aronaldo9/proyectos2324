@@ -1,0 +1,11 @@
+h1 {
+    text-align: center;
+}
+
+.card {
+    transition: transform 0.5s; /* Añade una transición suave para el giro */
+}
+
+.card.is-flipped {
+    transform: rotateY(180deg);
+}
